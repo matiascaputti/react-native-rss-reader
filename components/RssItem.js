@@ -1,36 +1,50 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity,
+         StyleSheet } from 'react-native';
+import { withNavigation } from '@exponent/ex-navigation';
 import Image from 'react-native-image-progress';
 
+@withNavigation
 class RssItem extends React.Component {
+  constructor() {
+    super();
+
+    this.goToFeed = this.goToFeed.bind(this);
+  }
+
+  goToFeed() {
+    this.props.navigator.push('feed', { a: 1, b: 2 });
+  }
+
   render() {
     return (
-      <View style={styles.rssContainer}>
+      <TouchableOpacity onPress={this.goToFeed}>
+        <View style={styles.rssContainer}>
+          <View style={styles.rssContainerLeft}>
+            <Text
+              style={styles.title}
+              numberOfLines={2}
+            >
+              Title title title title title title title title title title title title title title
+            </Text>
+            <Text
+              style={styles.body}
+              numberOfLines={3}
+            >
+              Content content content content content content content content content content content content content content content
+            </Text>
+            <Text style={styles.added}>30 minutes ago</Text>
+          </View>
 
-        <View style={styles.rssContainerLeft}>
-          <Text
-            style={styles.title}
-            numberOfLines={2}
-          >
-            Title title title title title title title title title title title title title title
-          </Text>
-          <Text
-            style={styles.body}
-            numberOfLines={3}
-          >
-            Content content content content content content content content content content content content content content content
-          </Text>
-          <Text style={styles.added}>30 minutes ago</Text>
+          <View style={styles.rssContainerRight}>
+            <Image
+              style={styles.image}
+              source={{ uri: 'http://placeimg.com/401/401/any' }}
+              resizeMode={'stretch'}
+            />
+          </View>
         </View>
-
-        <View style={styles.rssContainerRight}>
-          <Image
-            style={styles.image}
-            source={{ uri: 'http://placeimg.com/401/401/any' }}
-          />
-        </View>
-
-      </View>
+      </TouchableOpacity>
     );
   }
 }
@@ -60,14 +74,14 @@ const styles = StyleSheet.create({
   },
 
   body: {
-    color: '#555',
+    color: '#777',
     fontSize: 12,
     paddingTop: 7
   },
 
   added: {
-    color: '#555',
-    fontSize: 10,
+    color: '#AAA',
+    fontSize: 9,
     fontWeight: '500',
     paddingTop: 7
   },

@@ -14,7 +14,7 @@ class RssAddInput extends React.Component {
   render() {
     return (
       <ScrollView
-        style={styles.inputContainer}
+        style={styles.container}
         refreshControl={
           <RefreshControl
             refreshing={this.state.loading}
@@ -34,7 +34,8 @@ class RssAddInput extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    paddingTop: 5
   }
 });
 

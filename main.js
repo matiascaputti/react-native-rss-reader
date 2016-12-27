@@ -4,6 +4,7 @@ import { Platform, StatusBar, StyleSheet,
          View } from 'react-native';
 import { NavigationProvider, StackNavigation } from '@exponent/ex-navigation';
 import Router from './navigation/Router';
+import Colors from './constants/Colors';
 
 class AppContainer extends React.Component {
   constructor(props) {
@@ -38,7 +39,7 @@ AppContainer.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f00'
+    backgroundColor: Colors.dark
   },
   statusBarUnderlay: {
     height: 24,
