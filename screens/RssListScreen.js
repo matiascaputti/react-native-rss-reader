@@ -4,13 +4,33 @@ import Colors from '../constants/Colors';
 import RssAddInput from '../components/RssAddInput';
 import RssList from '../components/RssList';
 
-const RssListScreen = () => (
-  <View style={styles.container}>
-    <RssAddInput />
+class RssListScreen extends React.Component {
+  constructor() {
+    super();
 
-    <RssList />
-  </View>
-);
+    this.rssList = [
+      'https://www.reddit.com/r/news/.rss',
+      'https://www.reddit.com/r/learnprogramming/new/.rss',
+      'https://www.reddit.com/r/learnpython/.rss',
+      'https://www.quora.com/profile/Santiago-Basulto/rss',
+      'https://www.quora.com/profile/Martin-Zugnoni/rss'
+    ];
+  }
+
+  componentDidMount() {
+
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <RssAddInput />
+
+        <RssList urls={this.rssList} />
+      </View>
+    );
+  }
+}
 
 RssListScreen.route = {
   navigationBar: {

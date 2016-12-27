@@ -1,14 +1,33 @@
 import React from 'react';
 import { ScrollView, RefreshControl, StyleSheet } from 'react-native';
+import Colors from '../constants/Colors';
 import RssItem from '../components/RssItem';
 
 class RssAddInput extends React.Component {
   constructor(props) {
     super(props);
 
+    this.colorsOrder = [
+      Colors.yellow,
+      Colors.red,
+      Colors.purple,
+      Colors.blue
+    ];
+
     this.state = {
-      loading: false
+      loading: false,
+      urls: this.props.urls
     };
+  }
+
+  renderRssItems() {
+    return this.props.urls.map((url, index) => (
+      <RssItem
+        key={index}
+        url={url}
+        color={this.colorsOrder[index % this.colorsOrder.length]}
+      />
+    ));
   }
 
   render() {
@@ -22,11 +41,7 @@ class RssAddInput extends React.Component {
           />
         }
       >
-        <RssItem />
-        <RssItem />
-        <RssItem />
-        <RssItem />
-        <RssItem />
+        {this.renderRssItems()}
       </ScrollView>
     );
   }

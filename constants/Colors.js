@@ -1,21 +1,13 @@
-const dark = '#2A2F31';
-const primary = '#428bca';
-const primary700 = '#2376BB';
-const success = '#5cb85c';
-const success700 = '#369836';
-const info = '#5bc0de';
-const warning = '#f0ad4e';
-const danger = '#d9534f';
-const danger700 = '#BE2F2B';
+const dark = 'rgb(56, 56, 56)';
+const red = 'rgb(236, 79, 67)';
+const yellow = 'rgb(255, 161, 72)';
+const purple = 'rgb(114, 33, 102)';
+const blue = 'rgb(0, 132, 135)';
 
 export default {
   dark,
-  primary,
-  primary700,
-  success,
-  success700,
-  info,
-  warning,
-  danger,
-  danger700
+  red,
+  yellow,
+  purple,
+  blue
 };
