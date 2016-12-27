@@ -1,0 +1,29 @@
+{
+  "name": "react-native-rss-reader",
+  "description": "React Native RSS reader",
+  "slug": "react-native-rss-reader",
+  "privacy": "public",
+  "sdkVersion": "12.0.0",
+  "version": "1.0.0",
+  "orientation": "portrait",
+  "primaryColor": "#3A4767",
+  "iconUrl": "https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png",
+  "notification": {
+    "iconUrl": "https://s13.postimg.org/wflosfalj/logo.png",
+    "color": "#000000",
+    "androidMode": "default",
+    "androidCollapsedTitle": "#{unread_notifications} new interactions"
+  },
+  "loading": {
+    "iconUrl": "https://s13.postimg.org/wflosfalj/logo.png",
+    "backgroundImageUrl": "http://i.imgur.com/zsnPy5z.png",
+    "backgroundColor": "#FFF",
+    "hideExponentText": true
+  },
+  "packagerOpts": {
+    "assetExts": ["ttf", "mp4"]
+  },
+  "ios": {
+    "supportsTablet": true
+  }
+}
