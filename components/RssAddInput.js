@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { View, TextInput, TouchableOpacity,
          StyleSheet } from 'react-native';
 import { Ionicons } from '@exponent/vector-icons';
 
 class RssAddInput extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      rssUrl: this.props.rssUrl
+    };
+  }
   // TODO: save to AsyncStorage
 
   render() {
@@ -12,8 +19,8 @@ class RssAddInput extends React.Component {
         <TextInput
           style={styles.textInput}
           placeholder={'Add new feed URL...'}
-          onChangeText={() => {}}
           value={this.props.rssUrl}
+          onChangeText={this.props.handleChange}
           autoCorrect={false}
           autoCapitalize="none"
           underlineColorAndroid={'transparent'}
@@ -21,7 +28,7 @@ class RssAddInput extends React.Component {
 
         <TouchableOpacity
           style={styles.iconContainer}
-          onPress={() => {}}
+          onPress={this.props.handleSave}
         >
           <Ionicons
             name={'md-add-circle'}
@@ -33,6 +40,12 @@ class RssAddInput extends React.Component {
     );
   }
 }
+
+RssAddInput.propTypes = {
+  rssUrl: PropTypes.string,
+  handleChange: PropTypes.func,
+  handleSave: PropTypes.func
+};
 
 const styles = StyleSheet.create({
   inputContainer: {

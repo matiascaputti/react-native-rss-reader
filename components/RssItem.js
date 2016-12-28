@@ -19,7 +19,6 @@ class RssItem extends React.Component {
     };
 
     this.handlePress = this.handlePress.bind(this);
-    this.handleLongPress = this.handleLongPress.bind(this);
   }
 
   componentDidMount() {
@@ -45,14 +44,11 @@ class RssItem extends React.Component {
     this.props.navigator.push('feed', { title, entries });
   }
 
-  handleLongPress() {
-  }
-
   render() {
     return (
       <TouchableOpacity
         onPress={this.state.isLoading ? () => {} : this.handlePress}
-        onLongPress={this.state.isLoading ? () => {} : this.handleLongPress}
+        onLongPress={() => this.props.handleDelete(this.props.url)}
       >
         <View style={[styles.rssContainer, { backgroundColor: this.props.color }]}>
           { this.state.isLoading ?
@@ -80,6 +76,7 @@ class RssItem extends React.Component {
 RssItem.propTypes = {
   url: PropTypes.string,
   color: PropTypes.string,
+  handleDelete: PropTypes.func,
   navigator: PropTypes.array
 
 };

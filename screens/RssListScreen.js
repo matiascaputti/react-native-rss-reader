@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, AsyncStorage, Alert, StyleSheet } from 'react-native';
+import _ from 'underscore';
 import Colors from '../constants/Colors';
 import RssAddInput from '../components/RssAddInput';
 import RssList from '../components/RssList';
@@ -8,33 +9,78 @@ class RssListScreen extends React.Component {
   constructor() {
     super();
 
-    // TODO: refactor using AsyncStorage
-    // TODO: handle refresh
-
     this.state = {
-      rssList: [
-        'https://www.reddit.com/r/news/.rss',
-        'https://www.reddit.com/r/learnprogramming/new/.rss',
-        'https://www.reddit.com/r/learnpython/.rss',
-        'https://www.quora.com/profile/Santiago-Basulto/rss',
-        'https://www.quora.com/profile/Martin-Zugnoni/rss'
-      ]
+      rssUrl: '',
+      rssList: []
     };
+
+    this.getRssList();
+
+    this.getRssList = this.getRssList.bind(this);
+    this.handleSaveRss = this.handleSaveRss.bind(this);
+    this.handleDeleteRss = this.handleDeleteRss.bind(this);
+    this.handleChangeRssUrl = this.handleChangeRssUrl.bind(this);
   }
 
-  componentDidMount() {
+  getRssList() {
+    AsyncStorage.getItem('rssList')
+    .then((response) => {
+      const rssList = JSON.parse(response) || [];
+      this.setState({ rssList });
+    });
+  }
 
+  handleSaveRss() {
+    if (this.state.rssUrl.length) {
+      const { rssList } = this.state;
+      rssList.push(this.state.rssUrl);
+
+      AsyncStorage.setItem('rssList', JSON.stringify(rssList))
+      .then(() => {
+        this.setState({
+          rssUrl: '',
+          rssList
+        });
+      });
+    }
+  }
+
+  handleDeleteRss(rssUrl) {
+    const rssList = _.without(this.state.rssList, rssUrl);
+
+    Alert.alert(
+      'Delete RSS feed?',
+      'this action cannot be undone',
+      [
+        { text: 'Cancel', onPress: () => {}, style: 'cancel' },
+        { text: 'Delete', onPress: () => {
+          AsyncStorage.setItem('rssList', JSON.stringify(rssList))
+          .then(() => {
+            this.setState({ rssList });
+          });
+        }, style: 'destructive' }
+      ]
+    );
+  }
+
+  handleChangeRssUrl(rssUrl) {
+    this.setState({ rssUrl });
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <RssAddInput />
+        <RssAddInput
+          rssUrl={this.state.rssUrl}
+          handleChange={this.handleChangeRssUrl}
+          handleSave={this.handleSaveRss}
+        />
 
         <RssList
           urls={this.state.rssList}
           isRefreshing={false}
-          handleRefresh={() => {}}
+          handleRefresh={this.getRssList}
+          handleDelete={this.handleDeleteRss}
         />
       </View>
     );

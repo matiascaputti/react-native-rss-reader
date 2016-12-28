@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { ScrollView, RefreshControl, StyleSheet } from 'react-native';
+import { ScrollView, Text, RefreshControl, StyleSheet } from 'react-native';
 import Colors from '../constants/Colors';
 import RssItem from '../components/RssItem';
 
@@ -17,6 +17,7 @@ const RssList = (props) => {
       key={index}
       url={url}
       color={colorsOrder[index % colorsOrder.length]}
+      handleDelete={props.handleDelete}
     />
   ));
 
@@ -26,24 +27,35 @@ const RssList = (props) => {
       refreshControl={
         <RefreshControl
           refreshing={props.isRefreshing}
-          onRefresh={() => {}}
+          onRefresh={props.handleRefresh}
         />
       }
     >
-      {renderRssItems()}
+      { props.urls.length ?
+        renderRssItems() :
+        <Text style={styles.error}>No RSS saved yet, add a new one 👆</Text>
+      }
     </ScrollView>
   );
 };
 
 RssList.propTypes = {
   isRefreshing: PropTypes.bool,
-  urls: PropTypes.array
+  urls: PropTypes.array,
+  handleRefresh: PropTypes.func,
+  handleDelete: PropTypes.func
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 5
+  },
+
+  error: {
+    color: '#777',
+    textAlign: 'center',
+    marginTop: 15
   }
 });
 

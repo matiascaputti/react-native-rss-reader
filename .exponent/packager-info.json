@@ -1,8 +1,8 @@
 {
   "exponentServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 2772,
+  "packagerPid": 1534,
   "exponentServerNgrokUrl": "https://nk-u7r.test123.react-native-rss-reader.exp.direct",
   "packagerNgrokUrl": "https://packager.nk-u7r.test123.react-native-rss-reader.exp.direct",
-  "ngrokPid": 2819
+  "ngrokPid": 1553
 }
