@@ -1,12 +1,12 @@
 import { createRouter } from '@exponent/ex-navigation';
 import RssListScreen from '../screens/RssListScreen';
 import FeedScreen from '../screens/FeedScreen';
-import ArticleScreen from '../screens/ArticleScreen';
+import EntryScreen from '../screens/EntryScreen';
 
 const Router = createRouter(() => ({
   rssList: () => RssListScreen,
   feed: () => FeedScreen,
-  article: () => ArticleScreen
+  entry: () => EntryScreen
 }));
 
 export default Router;

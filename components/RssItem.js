@@ -1,6 +1,6 @@
  import React from 'react';
  import { View, Text, TouchableOpacity,
-         StyleSheet } from 'react-native';
+         ActivityIndicator, StyleSheet } from 'react-native';
  import { withNavigation } from '@exponent/ex-navigation';
 
 @withNavigation
@@ -18,52 +18,59 @@
        isLoading: true
      };
 
-     this.goToFeed = this.goToFeed.bind(this);
+     this.handlePress = this.handlePress.bind(this);
+     this.handleLongPress = this.handleLongPress.bind(this);
    }
 
    componentDidMount() {
-     const parseUrl = 'https://ajax.googleapis.com/ajax/services/feed/load?v=2.0&q=';
+     const parseUrl = 'https://api.rss2json.com/v1/api.json?rss_url=';
      const { url } = this.props;
 
      fetch(parseUrl + url)
     .then(response => response.json())
     .then((json) => {
-      const { feed } = json.responseData;
-
       this.setState({
-        title: feed.title,
-        description: feed.description,
-        link: feed.link,
-        entries: feed.entries,
+        title: json.feed.title,
+        description: json.feed.description,
+        link: json.feed.link,
+        image: json.feed.image,
+        entries: json.items,
         isLoading: false
       });
     });
    }
 
-   goToFeed() {
-     this.props.navigator.push('feed', { a: 1, b: 2 });
+   handlePress() {
+     const { title, entries } = this.state;
+     this.props.navigator.push('feed', { title, entries });
+   }
+
+   handleLongPress() {
    }
 
    render() {
      return (
-       <TouchableOpacity onPress={this.goToFeed}>
+       <TouchableOpacity
+         onPress={this.state.isLoading ? () => {} : this.handlePress}
+         onLongPress={this.state.isLoading ? () => {} : this.handleLongPress}
+       >
          <View style={[styles.rssContainer, { backgroundColor: this.props.color }]}>
+           { this.state.isLoading ?
+             <ActivityIndicator color={'#FFF'} style={styles.activityIndicator} /> :
+             <View>
+               <Text style={styles.title} numberOfLines={2} >
+                 {this.state.title}
+               </Text>
 
-           <Text
-             style={styles.title}
-             numberOfLines={2}
-           >
-             {this.state.title}
-           </Text>
-           <Text
-             style={styles.body}
-             numberOfLines={3}
-           >
-             {this.state.description}
-           </Text>
-           <Text style={styles.footer}>
-             {this.state.link}
-           </Text>
+               <Text style={styles.body} numberOfLines={3} >
+                 {this.state.description}
+               </Text>
+
+               <Text style={styles.footer}>
+                 {this.state.link}
+               </Text>
+             </View>
+           }
          </View>
        </TouchableOpacity>
      );
@@ -97,6 +104,10 @@
      fontSize: 10,
      fontWeight: '500',
      paddingTop: 7
+   },
+
+   activityIndicator: {
+     padding: 15
    }
  });
 

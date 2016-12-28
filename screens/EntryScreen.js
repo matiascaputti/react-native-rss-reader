@@ -1,28 +1,22 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import Colors from '../constants/Colors';
-import FeedList from '../components/FeedList';
+import EntryDetail from '../components/EntryDetail';
 
-class ProfileScreen extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
+class EntryScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <FeedList entries={this.props.route.params.entries} />
+        <EntryDetail entry={this.props.route.params.entry} />
       </View>
     );
   }
 }
 
-ProfileScreen.route = {
+EntryScreen.route = {
   navigationBar: {
     visible: true,
-    title(params) {
-      return params.title;
-    },
+    title: 'Article title',
     backgroundColor: Colors.dark,
     tintColor: '#FFF'
   }
@@ -35,4 +29,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ProfileScreen;
+export default EntryScreen;

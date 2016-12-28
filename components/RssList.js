@@ -11,7 +11,8 @@ class RssAddInput extends React.Component {
       Colors.yellow,
       Colors.red,
       Colors.purple,
-      Colors.blue
+      Colors.blue,
+      Colors.dark
     ];
 
     this.state = {
