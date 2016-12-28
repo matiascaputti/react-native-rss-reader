@@ -85,10 +85,7 @@ const styles = StyleSheet.create({
   rssContainer: {
     flexDirection: 'column',
     backgroundColor: 'transparent',
-    borderBottomWidth: 1,
-    borderColor: '#EEE',
-    marginBottom: 5,
-    padding: 7
+    padding: 10
   },
 
   title: {

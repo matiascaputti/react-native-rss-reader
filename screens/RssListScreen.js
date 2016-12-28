@@ -31,9 +31,10 @@ class RssListScreen extends React.Component {
   }
 
   handleSaveRss() {
-    if (this.state.rssUrl.length) {
-      const { rssList } = this.state;
-      rssList.push(this.state.rssUrl);
+    const { rssList, rssUrl } = this.state;
+
+    if (rssUrl.length && !_.contains(rssList, rssUrl)) {
+      rssList.push(rssUrl);
 
       AsyncStorage.setItem('rssList', JSON.stringify(rssList))
       .then(() => {
@@ -46,14 +47,15 @@ class RssListScreen extends React.Component {
   }
 
   handleDeleteRss(rssUrl) {
-    const rssList = _.without(this.state.rssList, rssUrl);
-
     Alert.alert(
       'Delete RSS feed?',
       'this action cannot be undone',
       [
         { text: 'Cancel', onPress: () => {}, style: 'cancel' },
         { text: 'Delete', onPress: () => {
+          let { rssList } = this.state;
+          rssList = _.without(rssList, rssUrl);
+
           AsyncStorage.setItem('rssList', JSON.stringify(rssList))
           .then(() => {
             this.setState({ rssList });

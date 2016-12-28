@@ -14,7 +14,7 @@ const RssList = (props) => {
 
   const renderRssItems = () => props.urls.map((url, index) => (
     <RssItem
-      key={index}
+      key={url}
       url={url}
       color={colorsOrder[index % colorsOrder.length]}
       handleDelete={props.handleDelete}
@@ -48,8 +48,8 @@ RssList.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingTop: 5
+    flex: 1
+    // paddingTop: 5
   },
 
   error: {

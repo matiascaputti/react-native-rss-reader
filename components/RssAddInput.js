@@ -11,7 +11,6 @@ class RssAddInput extends React.Component {
       rssUrl: this.props.rssUrl
     };
   }
-  // TODO: save to AsyncStorage
 
   render() {
     return (
