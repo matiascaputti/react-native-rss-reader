@@ -1,33 +1,33 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { ScrollView, Text, Linking, StyleSheet } from 'react-native';
-import { withNavigation } from '@exponent/ex-navigation';
 import HTMLView from 'react-native-htmlview';
 import Colors from '../constants/Colors';
 
-@withNavigation
-class EntryDetail extends React.Component {
-  render() {
-    const entry = this.props.entry;
+const EntryDetail = (props) => {
+  const entry = props.entry;
 
-    return (
-      <ScrollView style={styles.container}>
-        <Text style={styles.title} >
-          {entry.title}
-        </Text>
+  return (
+    <ScrollView style={styles.container}>
+      <Text style={styles.title} >
+        {entry.title}
+      </Text>
 
-        <Text style={styles.author}>
-          {entry.author}
-        </Text>
+      <Text style={styles.author}>
+        {entry.author}
+      </Text>
 
-        <HTMLView
-          value={entry.content}
-          stylesheet={styles}
-          onLinkPress={url => Linking.openURL(url)}
-        />
-      </ScrollView>
-    );
-  }
-}
+      <HTMLView
+        value={entry.content}
+        stylesheet={styles}
+        onLinkPress={url => Linking.openURL(url)}
+      />
+    </ScrollView>
+  );
+};
+
+EntryDetail.propTypes = {
+  entry: PropTypes.object
+};
 
 const styles = StyleSheet.create({
   container: {

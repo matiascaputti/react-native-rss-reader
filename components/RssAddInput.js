@@ -4,6 +4,8 @@ import { View, TextInput, TouchableOpacity,
 import { Ionicons } from '@exponent/vector-icons';
 
 class RssAddInput extends React.Component {
+  // TODO: save to AsyncStorage
+
   render() {
     return (
       <View style={styles.inputContainer}>

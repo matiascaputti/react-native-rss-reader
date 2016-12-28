@@ -1,25 +1,27 @@
-import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import React, { PropTypes } from 'react';
+import { View, StyleSheet } from 'react-native';
 import Colors from '../constants/Colors';
 import EntryDetail from '../components/EntryDetail';
 
-class EntryScreen extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <EntryDetail entry={this.props.route.params.entry} />
-      </View>
-    );
-  }
-}
+const EntryScreen = props => (
+  <View style={styles.container}>
+    <EntryDetail entry={props.route.params.entry} />
+  </View>
+);
 
 EntryScreen.route = {
   navigationBar: {
     visible: true,
-    title: 'Article title',
+    title(params) {
+      return params.entry.title;
+    },
     backgroundColor: Colors.dark,
     tintColor: '#FFF'
   }
+};
+
+EntryScreen.propTypes = {
+  route: PropTypes.object
 };
 
 const styles = StyleSheet.create({

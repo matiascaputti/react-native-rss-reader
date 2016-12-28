@@ -1,32 +1,32 @@
- import React from 'react';
- import { View, Text, TouchableOpacity,
+import React, { PropTypes } from 'react';
+import { View, Text, TouchableOpacity,
          ActivityIndicator, StyleSheet } from 'react-native';
- import { withNavigation } from '@exponent/ex-navigation';
+import { withNavigation } from '@exponent/ex-navigation';
 
 @withNavigation
- class RssItem extends React.Component {
-   constructor(props) {
-     super(props);
+class RssItem extends React.Component {
+  constructor(props) {
+    super(props);
 
-     this.state = {
-       url: this.props.url,
-       title: '',
-       description: '',
-       link: '',
-       entries: [],
-       color: this.props.color,
-       isLoading: true
-     };
+    this.state = {
+      url: this.props.url,
+      title: '',
+      description: '',
+      link: '',
+      entries: [],
+      color: this.props.color,
+      isLoading: true
+    };
 
-     this.handlePress = this.handlePress.bind(this);
-     this.handleLongPress = this.handleLongPress.bind(this);
-   }
+    this.handlePress = this.handlePress.bind(this);
+    this.handleLongPress = this.handleLongPress.bind(this);
+  }
 
-   componentDidMount() {
-     const parseUrl = 'https://api.rss2json.com/v1/api.json?rss_url=';
-     const { url } = this.props;
+  componentDidMount() {
+    const parseUrl = 'https://api.rss2json.com/v1/api.json?rss_url=';
+    const { url } = this.props;
 
-     fetch(parseUrl + url)
+    fetch(parseUrl + url)
     .then(response => response.json())
     .then((json) => {
       this.setState({
@@ -38,77 +38,84 @@
         isLoading: false
       });
     });
-   }
+  }
 
-   handlePress() {
-     const { title, entries } = this.state;
-     this.props.navigator.push('feed', { title, entries });
-   }
+  handlePress() {
+    const { title, entries } = this.state;
+    this.props.navigator.push('feed', { title, entries });
+  }
 
-   handleLongPress() {
-   }
+  handleLongPress() {
+  }
 
-   render() {
-     return (
-       <TouchableOpacity
-         onPress={this.state.isLoading ? () => {} : this.handlePress}
-         onLongPress={this.state.isLoading ? () => {} : this.handleLongPress}
-       >
-         <View style={[styles.rssContainer, { backgroundColor: this.props.color }]}>
-           { this.state.isLoading ?
-             <ActivityIndicator color={'#FFF'} style={styles.activityIndicator} /> :
-             <View>
-               <Text style={styles.title} numberOfLines={2} >
-                 {this.state.title}
-               </Text>
+  render() {
+    return (
+      <TouchableOpacity
+        onPress={this.state.isLoading ? () => {} : this.handlePress}
+        onLongPress={this.state.isLoading ? () => {} : this.handleLongPress}
+      >
+        <View style={[styles.rssContainer, { backgroundColor: this.props.color }]}>
+          { this.state.isLoading ?
+            <ActivityIndicator color={'#FFF'} style={styles.activityIndicator} /> :
+            <View>
+              <Text style={styles.title} numberOfLines={2} >
+                {this.state.title}
+              </Text>
 
-               <Text style={styles.body} numberOfLines={3} >
-                 {this.state.description}
-               </Text>
+              <Text style={styles.body} numberOfLines={3} >
+                {this.state.description}
+              </Text>
 
-               <Text style={styles.footer}>
-                 {this.state.link}
-               </Text>
-             </View>
+              <Text style={styles.footer}>
+                {this.state.link}
+              </Text>
+            </View>
            }
-         </View>
-       </TouchableOpacity>
-     );
-   }
+        </View>
+      </TouchableOpacity>
+    );
+  }
 }
 
- const styles = StyleSheet.create({
-   rssContainer: {
-     flexDirection: 'column',
-     backgroundColor: 'transparent',
-     borderBottomWidth: 1,
-     borderColor: '#EEE',
-     marginBottom: 5,
-     padding: 7
-   },
+RssItem.propTypes = {
+  url: PropTypes.string,
+  color: PropTypes.string,
+  navigator: PropTypes.array
 
-   title: {
-     color: '#FFF',
-     fontSize: 16,
-     fontWeight: '600'
-   },
+};
 
-   body: {
-     color: '#FFF',
-     fontSize: 12,
-     paddingTop: 7
-   },
+const styles = StyleSheet.create({
+  rssContainer: {
+    flexDirection: 'column',
+    backgroundColor: 'transparent',
+    borderBottomWidth: 1,
+    borderColor: '#EEE',
+    marginBottom: 5,
+    padding: 7
+  },
 
-   footer: {
-     color: '#FFF',
-     fontSize: 10,
-     fontWeight: '500',
-     paddingTop: 7
-   },
+  title: {
+    color: '#FFF',
+    fontSize: 16,
+    fontWeight: '600'
+  },
 
-   activityIndicator: {
-     padding: 15
-   }
- });
+  body: {
+    color: '#FFF',
+    fontSize: 12,
+    paddingTop: 7
+  },
 
- export default RssItem;
+  footer: {
+    color: '#FFF',
+    fontSize: 10,
+    fontWeight: '500',
+    paddingTop: 7
+  },
+
+  activityIndicator: {
+    padding: 15
+  }
+});
+
+export default RssItem;

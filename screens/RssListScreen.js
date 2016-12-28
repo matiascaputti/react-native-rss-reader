@@ -8,13 +8,18 @@ class RssListScreen extends React.Component {
   constructor() {
     super();
 
-    this.rssList = [
-      'https://www.reddit.com/r/news/.rss',
-      'https://www.reddit.com/r/learnprogramming/new/.rss',
-      'https://www.reddit.com/r/learnpython/.rss',
-      'https://www.quora.com/profile/Santiago-Basulto/rss',
-      'https://www.quora.com/profile/Martin-Zugnoni/rss'
-    ];
+    // TODO: refactor using AsyncStorage
+    // TODO: handle refresh
+
+    this.state = {
+      rssList: [
+        'https://www.reddit.com/r/news/.rss',
+        'https://www.reddit.com/r/learnprogramming/new/.rss',
+        'https://www.reddit.com/r/learnpython/.rss',
+        'https://www.quora.com/profile/Santiago-Basulto/rss',
+        'https://www.quora.com/profile/Martin-Zugnoni/rss'
+      ]
+    };
   }
 
   componentDidMount() {
@@ -26,7 +31,11 @@ class RssListScreen extends React.Component {
       <View style={styles.container}>
         <RssAddInput />
 
-        <RssList urls={this.rssList} />
+        <RssList
+          urls={this.state.rssList}
+          isRefreshing={false}
+          handleRefresh={() => {}}
+        />
       </View>
     );
   }

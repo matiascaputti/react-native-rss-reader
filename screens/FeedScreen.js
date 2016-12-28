@@ -1,23 +1,15 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { View, StyleSheet } from 'react-native';
 import Colors from '../constants/Colors';
 import FeedList from '../components/FeedList';
 
-class ProfileScreen extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const FeedScreen = props => (
+  <View style={styles.container}>
+    <FeedList entries={props.route.params.entries} />
+  </View>
+);
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <FeedList entries={this.props.route.params.entries} />
-      </View>
-    );
-  }
-}
-
-ProfileScreen.route = {
+FeedScreen.route = {
   navigationBar: {
     visible: true,
     title(params) {
@@ -28,6 +20,10 @@ ProfileScreen.route = {
   }
 };
 
+FeedScreen.propTypes = {
+  route: PropTypes.object
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -35,4 +31,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ProfileScreen;
+export default FeedScreen;

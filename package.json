@@ -2,7 +2,7 @@
   "name": "react-native-rss-reader",
   "version": "0.0.0",
   "description": "React Native RSS reader",
-  "author": null,
+  "author": "Matías Caputti - RMOTR",
   "private": true,
   "main": "main.js",
   "dependencies": {

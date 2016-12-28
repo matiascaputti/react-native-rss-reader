@@ -1,52 +1,44 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { ScrollView, RefreshControl, StyleSheet } from 'react-native';
 import Colors from '../constants/Colors';
 import RssItem from '../components/RssItem';
 
-class RssAddInput extends React.Component {
-  constructor(props) {
-    super(props);
+const RssList = (props) => {
+  const colorsOrder = [
+    Colors.yellow,
+    Colors.red,
+    Colors.purple,
+    Colors.blue,
+    Colors.dark
+  ];
 
-    this.colorsOrder = [
-      Colors.yellow,
-      Colors.red,
-      Colors.purple,
-      Colors.blue,
-      Colors.dark
-    ];
+  const renderRssItems = () => props.urls.map((url, index) => (
+    <RssItem
+      key={index}
+      url={url}
+      color={colorsOrder[index % colorsOrder.length]}
+    />
+  ));
 
-    this.state = {
-      loading: false,
-      urls: this.props.urls
-    };
-  }
+  return (
+    <ScrollView
+      style={styles.container}
+      refreshControl={
+        <RefreshControl
+          refreshing={props.isRefreshing}
+          onRefresh={() => {}}
+        />
+      }
+    >
+      {renderRssItems()}
+    </ScrollView>
+  );
+};
 
-  renderRssItems() {
-    return this.props.urls.map((url, index) => (
-      <RssItem
-        key={index}
-        url={url}
-        color={this.colorsOrder[index % this.colorsOrder.length]}
-      />
-    ));
-  }
-
-  render() {
-    return (
-      <ScrollView
-        style={styles.container}
-        refreshControl={
-          <RefreshControl
-            refreshing={this.state.loading}
-            onRefresh={() => {}}
-          />
-        }
-      >
-        {this.renderRssItems()}
-      </ScrollView>
-    );
-  }
-}
+RssList.propTypes = {
+  isRefreshing: PropTypes.bool,
+  urls: PropTypes.array
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -55,4 +47,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default RssAddInput;
+export default RssList;

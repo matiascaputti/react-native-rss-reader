@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { View, Text, TouchableOpacity,
          StyleSheet } from 'react-native';
 import { withNavigation } from '@exponent/ex-navigation';
-import Image from 'react-native-image-progress';
 
 @withNavigation
-class Article extends React.Component {
+class EntryItem extends React.Component {
   constructor(props) {
     super(props);
 
@@ -34,6 +33,11 @@ class Article extends React.Component {
     );
   }
 }
+
+EntryItem.propTypes = {
+  entry: PropTypes.object,
+  navigator: PropTypes.array
+};
 
 const styles = StyleSheet.create({
   rssContainer: {
@@ -65,4 +69,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Article;
+export default EntryItem;
