@@ -28,14 +28,22 @@ class RssItem extends React.Component {
     fetch(parseUrl + url)
     .then(response => response.json())
     .then((json) => {
-      this.setState({
-        title: json.feed.title,
-        description: json.feed.description,
-        link: json.feed.link,
-        image: json.feed.image,
-        entries: json.items,
-        isLoading: false
-      });
+      if (json.status === 'ok') {
+        this.setState({
+          title: json.feed.title,
+          description: json.feed.description,
+          link: json.feed.link,
+          image: json.feed.image,
+          entries: json.items,
+          isLoading: false
+        });
+      } else {
+        this.setState({
+          title: 'This RSS is not working at the moment',
+          link: url,
+          isLoading: false
+        });
+      }
     });
   }
 
